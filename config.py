@@ -12,23 +12,41 @@ def load_admin_key():
     file.close()
     return key 
 
-
 with open("key2.key", "r") as check:
     checkfile = check.read()
     if checkfile == "":
         write_key()
 
-
-
-
-
-
-
-
-
 key = load_admin_key()
 fer = Fernet(key)
 
+
+def decrypt_admin_key():
+    try:
+        with open("admin.key", "r") as f:
+            data = f.read()
+            passw = fer.decrypt(data.encode()).decode()
+            return passw
+    except FileNotFoundError:
+        pass
+
+    
+admin = decrypt_admin_key()
+
+try:
+    with open("admin.key", "r") as ac:
+        admincheck = ac.read()
+except FileNotFoundError:
+    pass
+try:
+    if admincheck != "":
+        admin_pwd = str(getpass("Enter your current admin password to continue: "))
+        if admin_pwd != admin:
+            print("Acces denied.")
+            exit()
+except NameError:
+    pass
+    
 while True:
     admin_passw = getpass("What is your new admin password? ")
     if len(admin_passw) < 2:

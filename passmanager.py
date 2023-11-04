@@ -4,7 +4,12 @@
 from getpass import getpass
 from cryptography.fernet import Fernet
 
+with open("key2.key", "r") as kc:
+    keycheck = kc.read()
 
+if keycheck == "":
+    print("Please run the config file first to set your admin password")
+    exit()
 
 def load_admin_key():
     file = open("key2.key", "rb")
@@ -20,11 +25,8 @@ def decrypt_admin_key():
         data = f.read()
         passw = admin_fer.decrypt(data.encode()).decode()
         return passw
+
 admin = decrypt_admin_key()
-
-
-
-
 
 while True:
     adm_psw = str(getpass("What is the admin password: (Press q to exit) "))
@@ -67,7 +69,7 @@ def view():
             data = line.rstrip()
             platform, user, passw = data.split("|")
 
-            print("Platform:", platform, "User:", user, "Password",
+            print("Platform:", platform, "User:", user, "Password:",
                 fer.decrypt(passw.encode()).decode())
 
 def add():  
