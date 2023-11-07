@@ -31,7 +31,7 @@ def decrypt_admin_key():
 # put the decrpted admin password inside a variable to compare it to the input
 admin = decrypt_admin_key()
 
-# compare the input to the  the admin password
+# compare the input to the admin password
 while True:
     adm_psw = str(getpass("What is the admin password: (Press q to exit) "))
     if adm_psw == "q":
